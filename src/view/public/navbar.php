@@ -71,10 +71,10 @@ if (!isset($totalCantidad)) {
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link active" href="<?php echo $baseURL ?>src/view/consolas/agregarConsola.php" aria-current="page">Agregar consola<span class="visually-hidden">(current)</span></a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php echo $baseURL ?>src/view/consolas/agregarConsola.php" aria-current="page">Resumen<span class="visually-hidden">(current)</span></a>
-                    </li> -->
+                    </li> 
                 </ul>
             </div>
             <!-- <a class="nav-link active" href="<?php echo $baseURL ?>index.php" aria-current="page">Carrito<span class="visually-hidden">(current)</span></a> -->

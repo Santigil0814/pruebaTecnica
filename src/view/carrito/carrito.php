@@ -2,6 +2,9 @@
 session_start();
 
 if (isset($_SESSION['carrito']) || isset($_POST['consola'])) {
+
+    printf($_SESSION['carrito']);
+
     if (isset($_SESSION['carrito'])) {
         $carritoTotal = $_SESSION['carrito'];
         if (isset($_POST['consola'])) {

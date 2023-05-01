@@ -23,7 +23,7 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
             foreach ($data as $consola) {
             ?>
 
-                <form method="post" action="comprar.php">
+                <form method="post" action="carrito.php">
                     <tr class="">
                         <!-- <td scope="row"><?php echo $consola["id_consola"] ?></td> -->
                         <td>
@@ -45,9 +45,9 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
                         </td>
 
                         <td>
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i></button>
-                            <!-- <a name="" id="" class="btn btn-warning" href="src/view/editarConsola.php" role="button"><i class="fa-solid fa-pen-to-square"></i></a> -->
-                            <!-- <a name="" id="" class="btn btn-danger" href="#" role="button"><i class="fa-solid fa-trash"></i></a> -->
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
                         </td>
                     </tr>
                 </form>
