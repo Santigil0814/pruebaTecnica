@@ -32,8 +32,6 @@ class consolasModel
     public function saveCarrito($consola, $precio, $descuento, $totalDescuento)
     {
         $sql = "INSERT INTO `carrito` (`idCarrito`, `nombre`, `precio`, `precioDescuento`, `descuento`) VALUES (NULL, '$consola', '$precio', '$descuento', '$totalDescuento');";
-        // var_dump($sql);
-        // exit;
         mysqli_query($this->conexion, $sql);
         return header("location: ../../../index.php");
     }
@@ -41,17 +39,12 @@ class consolasModel
     public function saveVenta($consola, $descuento)
     {
         $sql = "INSERT INTO `ventas` (`id`, `consola`, `descuentoAplicado`) VALUES (NULL, '$consola', '$descuento');";
-        // var_dump($sql);
-        // exit;
         mysqli_query($this->conexion, $sql);
-        // return header("location: ../../../index.php");
     }
 
     public function deleteCarrito()
     {
         $sql = "DELETE FROM carrito";
-        // var_dump($sql);
-        // exit;
         mysqli_query($this->conexion, $sql);
     }
 

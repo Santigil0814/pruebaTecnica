@@ -13,8 +13,6 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
             <tr>
                 <th scope="col">Consola</th>
                 <th scope="col">Precio</th>
-                <!-- <th scope="col">Precio máximo</th> -->
-                <!-- <th scope="col">Descuento</th> -->
                 <th scope="col">Opción</th>
             </tr>
         </thead>
@@ -24,11 +22,8 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
             ?>
                 <tr class="">
 
-                    <!-- <td scope="row"><?php echo $consola["id_consola"] ?></td> -->
                     <td><?php echo $consola["consola"] ?></td>
                     <td>$ <?php echo number_format($consola["precioMinimo"]) ?></td>
-                    <!-- <td>$ <?php echo number_format($consola["precioMaximo"]) ?></td> -->
-                    <!-- <td>$ <?php echo number_format($consola["descuento"]) ?></td> -->
                     <td>
                         <form id="formulario" name="formulario" method="post" action="./src/view/carrito/carrito.php">
                             <input name="consola" type="hidden" id="consola" value="<?php echo $consola["consola"] ?>" />

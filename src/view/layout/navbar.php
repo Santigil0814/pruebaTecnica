@@ -57,15 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php echo $baseURL ?>index.php" aria-current="page">Inicio<span class="visually-hidden">(current)</span></a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo $baseURL ?>src/view/consolas/agregarConsola.php" aria-current="page">Agregar consola<span class="visually-hidden">(current)</span></a>
-                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php echo $baseURL ?>src/model/apiVentas.php" aria-current="page">Resumen<span class="visually-hidden">(current)</span></a>
                     </li>
                 </ul>
             </div>
-            <!-- <a class="nav-link active" href="<?php echo $baseURL ?>index.php" aria-current="page">Carrito<span class="visually-hidden">(current)</span></a> -->
             <button type="button" class="btn-car" data-bs-toggle="modal" data-bs-target="#modalId">
                 Carrito
             </button>
@@ -86,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="container-fluid">
                             <div class="table-responsive table-bordered m-3">
                                 <?php
-                                // var_dump($carrito);
                                 if (mysqli_num_rows($datos) > 0) {
 
 
