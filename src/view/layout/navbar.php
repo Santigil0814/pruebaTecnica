@@ -83,10 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="table-responsive table-bordered m-3">
                                 <?php
                                 if (mysqli_num_rows($datos) > 0) {
-
-
                                     $granTotal = 0;
-
                                 ?>
                                     <table class="table">
                                         <thead>
@@ -123,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </tbody>
                                     </table>
                                 <?php } else { ?>
-                                    <div class="alert alert-primary" role="alert">
+                                    <div class="alert alert-primary text-center" role="alert">
                                         <strong>No hay productos en el carrito</strong>
                                     </div>
 
