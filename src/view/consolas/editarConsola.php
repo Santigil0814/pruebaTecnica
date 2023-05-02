@@ -1,5 +1,5 @@
 <?php
-include("../public/navbar.php")
+include("../layout/navbar.php")
 ?>
 
 <head>
@@ -40,5 +40,5 @@ include("../public/navbar.php")
 </div>
 
 <?php
-include("../public/footer.php")
+include("../layout/footer.php")
 ?>

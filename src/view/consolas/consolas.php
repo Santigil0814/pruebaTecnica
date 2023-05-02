@@ -1,6 +1,6 @@
 <?php
 
-include("src/view/public/navbar.php");
+include("../layout/navbar.php");
 
 $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/controller/controllerConsolas/consolasController"), true);
 
@@ -12,8 +12,8 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
         <thead>
             <tr>
                 <th scope="col">Consola</th>
-                <th scope="col">Precio mínimo</th>
-                <th scope="col">Precio máximo</th>
+                <th scope="col">Precio</th>
+                <!-- <th scope="col">Precio máximo</th> -->
                 <th scope="col">Descuento</th>
                 <th scope="col">Opción</th>
             </tr>
@@ -23,7 +23,7 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
             foreach ($data as $consola) {
             ?>
 
-                <form method="post" action="carrito.php">
+                <form id="formulario" name="formulario" method="post" action="../carrito/carrito.php">
                     <tr class="">
                         <!-- <td scope="row"><?php echo $consola["id_consola"] ?></td> -->
                         <td>
@@ -34,10 +34,10 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
                             <input name="precioMinimo" type="hidden" id="precioMinimo" value="<?php echo $consola["precioMinimo"] ?>" />
                             <?php echo "$" . $consola["precioMinimo"] ?>
                         </td>
-                        <td>
+                        <!-- <td>
                             <input name="precioMaximo" type="hidden" id="precioMaximo" value="<?php echo $consola["precioMaximo"] ?>" />
                             <?php echo "$" . $consola["precioMaximo"] ?>
-                        </td>
+                        </td> -->
                         <input name="cantidad" type="hidden" id="cantidad" value="1" />
                         <td>
                             <input name="descuento" type="hidden" id="descuento" value="%<?php echo $consola["descuento"] ?>" />
@@ -60,5 +60,5 @@ $data = json_decode(file_get_contents("http://localhost:8080/pruebaTecnica/src/c
 </div>
 
 <?php
-include("src/view/public/footer.php");
+include("../layout/footer.php");
 ?>

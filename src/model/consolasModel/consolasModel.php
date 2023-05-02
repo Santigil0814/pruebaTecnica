@@ -22,6 +22,39 @@ class consolasModel
         return $consolas;
     }
 
+    public function getCarrito()
+    {
+        $sql = "SELECT * FROM carrito";
+        $datos = mysqli_query($this->conexion, $sql);
+        return $datos;
+    }
+
+    public function saveCarrito($consola, $precio, $descuento, $totalDescuento)
+    {
+        $sql = "INSERT INTO `carrito` (`idCarrito`, `nombre`, `precio`, `precioDescuento`, `descuento`) VALUES (NULL, '$consola', '$precio', '$descuento', '$totalDescuento');";
+        // var_dump($sql);
+        // exit;
+        mysqli_query($this->conexion, $sql);
+        return header("location: ../../../index.php");
+    }
+
+    public function saveVenta($consola, $descuento)
+    {
+        $sql = "INSERT INTO `ventas` (`id`, `consola`, `descuentoAplicado`) VALUES (NULL, '$consola', '$descuento');";
+        // var_dump($sql);
+        // exit;
+        mysqli_query($this->conexion, $sql);
+        // return header("location: ../../../index.php");
+    }
+
+    public function deleteCarrito()
+    {
+        $sql = "DELETE FROM carrito";
+        // var_dump($sql);
+        // exit;
+        mysqli_query($this->conexion, $sql);
+    }
+
     public function postConsola($consola, $precioMinimo, $precioMaximo, $descuento)
     {
         $valida = $this->existeConsola($consola, $precioMinimo, $precioMaximo, $descuento);
@@ -73,15 +106,4 @@ class consolasModel
         return $consolas;
     }
 
-    // Endpoint
-    public function totalDinero($consola, $precioMinimo, $precioMaximo, $descuento)
-    {
-        $consolas = [];
-        $sql = "SELECT * FROM consolas WHERE consola='$consola' AND precioMinimo='$precioMinimo' AND precioMaximo='$precioMaximo' AND descuento='$descuento' ";
-        $datos = mysqli_query($this->conexion, $sql);
-        while ($row = mysqli_fetch_assoc($datos)) {
-            array_push($consolas, $row);
-        };
-        return $consolas;
-    }
 }

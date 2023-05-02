@@ -1,36 +1,24 @@
 <?php
+require __DIR__ . "/../../model/consolasModel/consolasModel.php";
+
+$carrito = new consolasModel();
+$datos = $carrito->getCarrito();
+
 $baseURL = "http://localhost:8080/pruebaTecnica/";
 
-if (isset($_SESSION['carrito'])) {
-    $carritoTotal = $_SESSION['carrito'];
-}
+?>
 
-if (isset($_SESSION['carrito'])) {
-    for ($i = 0; $i <= count($carritoTotal) - 1; $i++) {
-        if (isset($carritoTotal[$i])) {
-            if ($carritoTotal[$i] != NULL) {
-                if (isset($carritoTotal['cantidad'])) {
-                    $carritoTotal['cantidad'] - '0';
-                } else {
-                    $carritoTotal['cantidad'] = $carritoTotal['cantidad'];
-                }
-                $totalCantidad = $carritoTotal['cantidad'];
-                $total_Cantidad++;
-                if (!isset($totalCantidad)) {
-                    $totalCantidad = '0';
-                } else {
-                    $totalCantidad = $totalCantidad;
-                }
-                $totalCantidad += $total_Cantidad;
-            }
-        }
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $venta = new consolasModel();
+    $datos = $venta->getCarrito();
+    while ($row = mysqli_fetch_assoc($datos)) {
+        $descuento = $row['descuento'];
+        $nombre = $row['nombre'];
+        $venta->saveVenta($nombre, $descuento);
     }
-}
-
-if (!isset($totalCantidad)) {
-    $totalCantidad = '';
-} else {
-    $totalCantidad = $totalCantidad;
+    $venta->deleteCarrito();
 }
 
 ?>
@@ -73,13 +61,13 @@ if (!isset($totalCantidad)) {
                         <a class="nav-link active" href="<?php echo $baseURL ?>src/view/consolas/agregarConsola.php" aria-current="page">Agregar consola<span class="visually-hidden">(current)</span></a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo $baseURL ?>src/view/consolas/agregarConsola.php" aria-current="page">Resumen<span class="visually-hidden">(current)</span></a>
-                    </li> 
+                        <a class="nav-link active" href="<?php echo $baseURL ?>src/model/apiVentas.php" aria-current="page">Resumen<span class="visually-hidden">(current)</span></a>
+                    </li>
                 </ul>
             </div>
             <!-- <a class="nav-link active" href="<?php echo $baseURL ?>index.php" aria-current="page">Carrito<span class="visually-hidden">(current)</span></a> -->
             <button type="button" class="btn-car" data-bs-toggle="modal" data-bs-target="#modalId">
-                Carrito <?php echo $totalCantidad; ?>
+                Carrito
             </button>
         </div>
     </nav>
@@ -96,14 +84,60 @@ if (!isset($totalCantidad)) {
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <?php
-                            include("/xampp/htdocs/pruebaTecnica/src/view/carrito/comprar.php");
-                            ?>
+                            <div class="table-responsive table-bordered m-3">
+                                <?php
+                                // var_dump($carrito);
+                                if (mysqli_num_rows($datos) > 0) {
+
+
+                                    $granTotal = 0;
+
+                                ?>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Productos</th>
+                                                <th scope="col">Precios</th>
+                                                <th scope="col">Descuento</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            while ($row = mysqli_fetch_assoc($datos)) {
+
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $row['nombre'] ?></td>
+                                                    <td><strike>$ <?php echo number_format($row['precio']) ?></strike></td>
+                                                    <td>$ <?php echo number_format($row['precioDescuento']) ?></td>
+                                                    <?php $granTotal += $row['precioDescuento'] ?>
+                                                </tr>
+
+                                            <?php } ?>
+                                            <form action="" method="post">
+                                                <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Guardar carrito</button>
+                                            </form>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <h5>Total carrito</h5>
+                                                </td>
+                                                <td>
+                                                    <h5>$ <?php echo number_format($granTotal) ?></h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                <?php } else { ?>
+                                    <div class="alert alert-primary" role="alert">
+                                        <strong>No hay productos en el carrito</strong>
+                                    </div>
+
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar factura</button>
                     </div>
                 </div>
             </div>

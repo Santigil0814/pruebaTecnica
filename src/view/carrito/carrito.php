@@ -1,39 +1,87 @@
 <?php
-session_start();
+require "../../model/consolasModel/consolasModel.php";
 
-if (isset($_SESSION['carrito']) || isset($_POST['consola'])) {
+$conexion = new consolasModel();
 
-    printf($_SESSION['carrito']);
+var_dump($conexion);
 
-    if (isset($_SESSION['carrito'])) {
-        $carritoTotal = $_SESSION['carrito'];
-        if (isset($_POST['consola'])) {
-            $consola = $_POST['consola'];
-            $precioMinimo = $_POST['precioMinimo'];
-            $precioMaximo = $_POST['precioMaximo'];
-            $descuento = $_POST['descuento'];
-            $cantidad = $_POST['cantidad'];
-            $donde = -1;
-            if ($donde != -1) {
-                $cuanto = $carritoTotal[$donde][$cantidad] + $cantidad;
-                $carritoTotal[$donde] = array("consola" => $consola, "precioMinimo" => $precioMinimo, "precioMaximo" => $precioMaximo, "cantidad" => $cuanto, "descuento" => $descuento);
+$precioEstandar = $_POST['precioEstandar'];
+$precioMinimo = $_POST['precioMinimo'];
+$precioMaximo = $_POST['precioMaximo'];
+
+if (isset($_POST)) {
+    $consola = $_POST['consola'];
+    if ($consola == "PS4") {
+        if ($precioMaximo == 0) {
+            if ($precioEstandar > $precioMinimo) {
+                $totalDescuento = $precioEstandar * 0.05;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
             } else {
-                $carritoTotal[] = array("consola" => $consola, "precioMinimo" => $precioMinimo, "precioMaximo" => $precioMaximo, "cantidad" => $cantidad, "descuento" => $descuento);
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        } else {
+            if ($precioEstandar > $precioMinimo && $precioEstandar < $precioMaximo) {
+                $totalDescuento = $precioEstandar * 0.05;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
             }
         }
-    } else {
-        $consola = $_POST['consola'];
-        $precioMinimo = $_POST['precioMinimo'];
-        $precioMaximo = $_POST['precioMaximo'];
-        $descuento = $_POST['descuento'];
-        $cantidad = $_POST['cantidad'];
-        $carritoTotal[] = array("consola" => $consola, "precioMinimo" => $precioMinimo, "precioMaximo" => $precioMaximo, "cantidad" => $cuanto, "descuento" => $descuento);
+    } else if ($consola == "XBOX") {
+        if ($precioMaximo == 0) {
+            if ($precioEstandar > $precioMinimo) {
+                $totalDescuento = $precioEstandar * 0.07;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        } else {
+            if ($precioEstandar > $precioMinimo && $precioEstandar < $precioMaximo) {
+                $totalDescuento = $precioEstandar * 0.07;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        }
+    } else if ($consola == "PC") {
+        if ($precioMaximo == 0) {
+            if ($precioEstandar > $precioMinimo) {
+                $totalDescuento = $precioEstandar * 0.15;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        } else {
+            if ($precioEstandar > $precioMinimo && $precioEstandar < $precioMaximo) {
+                $totalDescuento = $precioEstandar * 0.15;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        }
+    } else if ($consola == "Otra") {
+        if ($precioMaximo == 0) {
+            if ($precioEstandar > $precioMinimo) {
+                $totalDescuento = $precioEstandar * 0.1;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        } else {
+            if ($precioEstandar > $precioMinimo && $precioEstandar < $precioMaximo) {
+                $totalDescuento = $precioEstandar * 0.1;
+                $conDescuento = $precioEstandar - $totalDescuento;
+                $conexion->saveCarrito($consola, $precioEstandar, $conDescuento, $totalDescuento);
+            } else {
+                $conexion->saveCarrito($consola, $precioEstandar, $precioEstandar, $totalDescuento);
+            }
+        }
     }
-
-    $_SESSION['carrito'] = $carritoTotal;
-
 }
-
-header("Location: ".$_SERVER['HTTP_REFERER']."")
-
-?>
